@@ -32,8 +32,6 @@ bool operateMatrixFirst(float ***matrix, int length);
 
 bool operateMatrixSecond(float ***matrix, int length);
 
-bool operateMatrix2(float ***matrix, int length);
-
 void printMatrix(float ***matrix, int *length);
 
 void swapRows(float ***matrix, int FirstRow, int SecondRow);

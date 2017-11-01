@@ -11,7 +11,7 @@ using namespace std;
 
 class TimeStop
 {
-    
+
 public:
     void startTimeStop();
     void stopTimeStop();
@@ -21,16 +21,12 @@ private:
     chrono::high_resolution_clock::time_point t1;
     chrono::high_resolution_clock::time_point t2;
     chrono::duration<double> time_span;
-    
+
 };
 
 float **loadInput(int *length);
 
 float **loadInput(ifstream *inputMatrixFile, int *length);
-
-bool operateMatrixFirst(float ***matrix, int length);
-
-bool operateMatrixSecond(float ***matrix, int length);
 
 bool operateMatrix2(float ***matrix, int length);
 
@@ -52,7 +48,7 @@ INPUT - number of lines - then matrix of coefficients
 */
 
 int main(int argc, char const *argv[]) {
-     int length = 0;
+    int length = 0;
     float **matrix;
     ofstream myResultsFile("Results.txt", fstream::out | fstream::app);
     using namespace std::chrono;
@@ -74,7 +70,7 @@ int main(int argc, char const *argv[]) {
 
         stopky.startTimeStop();
 
-        if (!operateMatrixFirst(&matrix, length) || !operateMatrixSecond(&matrix, length)) {
+        if( !operateMatrix2(&matrix, length) ){
             cout << "Failed eliminations" << endl;
             return 1;
         }
@@ -104,7 +100,7 @@ int main(int argc, char const *argv[]) {
 
             matrix = loadInput(&myMatrixFiles, &length);
 
-            if (!operateMatrixFirst(&matrix, length) || !operateMatrixSecond(&matrix, length)) {
+            if( !operateMatrix2(&matrix, length) ){
                 cout << "Failed eliminations" << endl;
                 return 1;
             }
@@ -123,7 +119,7 @@ int main(int argc, char const *argv[]) {
 
         stopky.startTimeStop();
 
-        if (!operateMatrixFirst(&matrix, length) || !operateMatrixSecond(&matrix, length)) {
+        if( !operateMatrix2(&matrix, length) ){
             cout << "Failed eliminations" << endl;
             return 1;
         }
@@ -299,17 +295,17 @@ void negateRow(float ***matrix, int rowToTransf, int length) {
 
 
 
-void TimeStop::startTimeStop(){
+void TimeStop::startTimeStop() {
     this->t1 = chrono::high_resolution_clock::now();
 }
 
 
-void TimeStop::stopTimeStop(){
+void TimeStop::stopTimeStop() {
     this->t2 = chrono::high_resolution_clock::now();
     this->time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
 }
 
 
-double TimeStop::getRealTime(){
+double TimeStop::getRealTime() {
     return this->time_span.count();
 }
